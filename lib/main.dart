@@ -14,7 +14,6 @@ class MakananKalselApp extends StatelessWidget {
       title: 'Makanan Tradisional Kalsel',
       debugShowCheckedModeBanner: false,
 
-      
       theme: ThemeData(
         primaryColor: const Color(0xFFFFE082),
         scaffoldBackgroundColor: const Color(0xFFFFFDE7),
@@ -132,7 +131,7 @@ final List<Makanan> daftarMakanan = [
         'hidangan ini sangat cocok disantap bersama nasi panas. Gangan Asam sering menjadi menu '
         'harian di rumah-rumah masyarakat Kalimantan Selatan.',
     imageUrl:
-        'https://jambiindependent.bacakoran.co/upload/b7b800f70d49b44195cdce801a044d18.jpeg',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMbz2vQfuK7cw3KJ7Y0-o0flDi0Fp2cbrDLA&s',
     kategori: ['Asam', 'Ikan'],
   ),
 ];
