@@ -154,19 +154,17 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // ===== IKON DALAM LINGKARAN =====
+            // ===== IKON HITAM DALAM LINGKARAN KUNING =====
             Container(
               decoration: BoxDecoration(
-                color: const Color(0xFFFFF3E0), // warna lingkaran
+                color: const Color(0xFFFFC107), // latar kuning
                 shape: BoxShape.circle,
               ),
-              padding: const EdgeInsets.all(
-                20,
-              ), // jarak antara ikon dan lingkaran
+              padding: const EdgeInsets.all(20),
               child: const Icon(
                 Icons.restaurant,
                 size: 60,
-                color: Color(0xFFFFC107),
+                color: Colors.black, // ikon hitam
               ),
             ),
             const SizedBox(height: 16),
@@ -218,70 +216,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-/// ================= HALAMAN LIST MAKANAN =================
-class ListMakananPage extends StatefulWidget {
-  final String username;
-  const ListMakananPage({super.key, required this.username});
-
-  @override
-  State<ListMakananPage> createState() => _ListMakananPageState();
-}
-
-class _ListMakananPageState extends State<ListMakananPage> {
-  String search = '';
-
-  @override
-  Widget build(BuildContext context) {
-    final filtered = daftarMakanan
-        .where((m) => m.nama.toLowerCase().contains(search.toLowerCase()))
-        .toList();
-
-    return Scaffold(
-      appBar: AppBar(title: const Text('Daftar Makanan')),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: TextField(
-              onChanged: (value) => setState(() => search = value),
-              decoration: const InputDecoration(hintText: 'Cari makanan...'),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: filtered.length,
-              itemBuilder: (context, index) {
-                final makanan = filtered[index];
-                return Card(
-                  child: ListTile(
-                    leading: Image.network(makanan.imageUrl, width: 60),
-                    title: Text(makanan.nama),
-                    subtitle: Wrap(
-                      spacing: 6,
-                      children: makanan.kategori
-                          .map((k) => Chip(label: Text(k)))
-                          .toList(),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              DetailMakananPage(makanan: makanan),
-                        ),
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
       ),
     );
   }
