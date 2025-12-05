@@ -14,7 +14,7 @@ class MakananKalselApp extends StatelessWidget {
       title: 'Makanan Tradisional Kalsel',
       debugShowCheckedModeBanner: false,
 
-      /// ✅ TEMA KUNING CREAM LEMBUT (ANTI SAKIT MATA)
+      
       theme: ThemeData(
         primaryColor: const Color(0xFFFFE082),
         scaffoldBackgroundColor: const Color(0xFFFFFDE7),
