@@ -13,8 +13,6 @@ class MakananKalselApp extends StatelessWidget {
     return MaterialApp(
       title: 'Makanan Tradisional Kalsel',
       debugShowCheckedModeBanner: false,
-
-      // ===== TEMA KUNING PUTIH LEMBUT =====
       theme: ThemeData(
         primaryColor: const Color(0xFFFFD54F),
         scaffoldBackgroundColor: const Color(0xFFFFFBF2),
@@ -42,7 +40,6 @@ class MakananKalselApp extends StatelessWidget {
           labelStyle: TextStyle(color: Colors.black87, fontSize: 12),
         ),
       ),
-
       home: const LoginPage(),
     );
   }
@@ -221,6 +218,70 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
+/// ================= HALAMAN LIST MAKANAN =================
+class ListMakananPage extends StatefulWidget {
+  final String username;
+  const ListMakananPage({super.key, required this.username});
+
+  @override
+  State<ListMakananPage> createState() => _ListMakananPageState();
+}
+
+class _ListMakananPageState extends State<ListMakananPage> {
+  String search = '';
+
+  @override
+  Widget build(BuildContext context) {
+    final filtered = daftarMakanan
+        .where((m) => m.nama.toLowerCase().contains(search.toLowerCase()))
+        .toList();
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Daftar Makanan')),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: TextField(
+              onChanged: (value) => setState(() => search = value),
+              decoration: const InputDecoration(hintText: 'Cari makanan...'),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: filtered.length,
+              itemBuilder: (context, index) {
+                final makanan = filtered[index];
+                return Card(
+                  child: ListTile(
+                    leading: Image.network(makanan.imageUrl, width: 60),
+                    title: Text(makanan.nama),
+                    subtitle: Wrap(
+                      spacing: 6,
+                      children: makanan.kategori
+                          .map((k) => Chip(label: Text(k)))
+                          .toList(),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              DetailMakananPage(makanan: makanan),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 /// ================= HALAMAN DETAIL =================
 class DetailMakananPage extends StatelessWidget {
   final Makanan makanan;
@@ -238,11 +299,8 @@ class DetailMakananPage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: AspectRatio(
-                aspectRatio: 16 / 9, // sesuaikan rasio, bisa 4/3 atau 16/9
-                child: Image.network(
-                  makanan.imageUrl,
-                  fit: BoxFit.cover, // menjaga proporsi gambar
-                ),
+                aspectRatio: 16 / 9,
+                child: Image.network(makanan.imageUrl, fit: BoxFit.cover),
               ),
             ),
 
