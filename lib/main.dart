@@ -14,7 +14,6 @@ class MakananKalselApp extends StatelessWidget {
       title: 'Makanan Tradisional Kalsel',
       debugShowCheckedModeBanner: false,
 
-      /// ✅ TEMA KUNING CREAM LEMBUT (ANTI SAKIT MATA)
       theme: ThemeData(
         primaryColor: const Color(0xFFFFE082),
         scaffoldBackgroundColor: const Color(0xFFFFFDE7),
@@ -138,7 +137,6 @@ final List<Makanan> daftarMakanan = [
 ];
 
 /// ================= HALAMAN LOGIN =================
-c/// ================= HALAMAN LOGIN =================
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -176,13 +174,11 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.symmetric(horizontal: 28),
           child: Column(
             children: [
-
-              /// ✅ ICON BULAT TENGAH (GARPU & SENDOK)
               Container(
                 width: 130,
                 height: 130,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFF3CD),
+                decoration: const BoxDecoration(
+                  color: Color(0xFFFFF3CD),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
@@ -194,18 +190,12 @@ class _LoginPageState extends State<LoginPage> {
 
               const SizedBox(height: 20),
 
-              /// ✅ JUDUL
               const Text(
                 'Makanan Kalimantan Selatan',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
 
               const SizedBox(height: 6),
-
               const Text(
                 'Masuk untuk mulai menjelajah',
                 style: TextStyle(fontSize: 12, color: Colors.grey),
@@ -213,7 +203,6 @@ class _LoginPageState extends State<LoginPage> {
 
               const SizedBox(height: 30),
 
-              /// ✅ INPUT USERNAME
               TextField(
                 controller: username,
                 decoration: const InputDecoration(
@@ -224,7 +213,6 @@ class _LoginPageState extends State<LoginPage> {
 
               const SizedBox(height: 18),
 
-              /// ✅ INPUT PASSWORD
               TextField(
                 controller: password,
                 obscureText: true,
@@ -234,24 +222,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              const SizedBox(height: 10),
-
-              /// ✅ TEKS LUPA PASSWORD (OPSIONAL)
-              Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  'Forgot Password?',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFFFFB300),
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-
               const SizedBox(height: 25),
 
-              /// ✅ TOMBOL LOGIN KUNING KALEM
               SizedBox(
                 width: double.infinity,
                 height: 48,
@@ -259,10 +231,7 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: login,
                   child: const Text(
                     'SIGN IN',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -288,9 +257,9 @@ class _ListMakananPageState extends State<ListMakananPage> {
 
   @override
   Widget build(BuildContext context) {
-    final filtered = daftarMakanan.where((m) {
-      return m.nama.toLowerCase().contains(search.toLowerCase());
-    }).toList();
+    final filtered = daftarMakanan
+        .where((m) => m.nama.toLowerCase().contains(search.toLowerCase()))
+        .toList();
 
     return Scaffold(
       appBar: AppBar(title: const Text('Daftar Makanan')),
@@ -306,6 +275,7 @@ class _ListMakananPageState extends State<ListMakananPage> {
               ),
             ),
           ),
+
           Expanded(
             child: ListView.builder(
               itemCount: filtered.length,
@@ -317,13 +287,33 @@ class _ListMakananPageState extends State<ListMakananPage> {
                     vertical: 6,
                   ),
                   child: ListTile(
+                    isThreeLine: true,
                     leading: Image.network(
                       makanan.imageUrl,
                       width: 60,
                       fit: BoxFit.cover,
                     ),
                     title: Text(makanan.nama),
-                    subtitle: Text(makanan.asal),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(makanan.asal),
+                        const SizedBox(height: 4),
+                        Wrap(
+                          spacing: 6,
+                          children: makanan.kategori
+                              .map(
+                                (k) => Chip(
+                                  label: Text(
+                                    k,
+                                    style: const TextStyle(fontSize: 10),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ],
+                    ),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -344,7 +334,7 @@ class _ListMakananPageState extends State<ListMakananPage> {
   }
 }
 
-/// ================= HALAMAN DETAIL MAKANAN =================
+/// ================= HALAMAN DETAIL =================
 class DetailMakananPage extends StatelessWidget {
   final Makanan makanan;
   const DetailMakananPage({super.key, required this.makanan});
@@ -359,28 +349,9 @@ class DetailMakananPage extends StatelessWidget {
             Image.network(makanan.imageUrl),
             Padding(
               padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    makanan.nama,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  Text(makanan.asal),
-                  const SizedBox(height: 12),
-                  Wrap(
-                    spacing: 6,
-                    children: makanan.kategori
-                        .map((e) => Chip(label: Text(e)))
-                        .toList(),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(makanan.deskripsiLengkap, textAlign: TextAlign.justify),
-                ],
+              child: Text(
+                makanan.deskripsiLengkap,
+                textAlign: TextAlign.justify,
               ),
             ),
           ],
