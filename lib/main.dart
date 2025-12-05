@@ -14,6 +14,7 @@ class MakananKalselApp extends StatelessWidget {
       title: 'Makanan Tradisional Kalsel',
       debugShowCheckedModeBanner: false,
 
+      /// ✅ TEMA KUNING CREAM LEMBUT (ANTI SAKIT MATA)
       theme: ThemeData(
         primaryColor: const Color(0xFFFFE082),
         scaffoldBackgroundColor: const Color(0xFFFFFDE7),
@@ -174,6 +175,7 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.symmetric(horizontal: 28),
           child: Column(
             children: [
+              /// ✅ ICON BULAT GARPU & SENDOK
               Container(
                 width: 130,
                 height: 130,
@@ -287,33 +289,13 @@ class _ListMakananPageState extends State<ListMakananPage> {
                     vertical: 6,
                   ),
                   child: ListTile(
-                    isThreeLine: true,
                     leading: Image.network(
                       makanan.imageUrl,
                       width: 60,
                       fit: BoxFit.cover,
                     ),
                     title: Text(makanan.nama),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(makanan.asal),
-                        const SizedBox(height: 4),
-                        Wrap(
-                          spacing: 6,
-                          children: makanan.kategori
-                              .map(
-                                (k) => Chip(
-                                  label: Text(
-                                    k,
-                                    style: const TextStyle(fontSize: 10),
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      ],
-                    ),
+                    subtitle: Text(makanan.asal),
                     onTap: () {
                       Navigator.push(
                         context,
