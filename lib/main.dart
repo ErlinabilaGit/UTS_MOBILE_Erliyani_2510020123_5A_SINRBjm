@@ -154,8 +154,21 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // ===== IKON =====
-            const Icon(Icons.restaurant, size: 80, color: Color(0xFFFFC107)),
+            // ===== IKON DALAM LINGKARAN =====
+            Container(
+              decoration: BoxDecoration(
+                color: const Color(0xFFFFF3E0), // warna lingkaran
+                shape: BoxShape.circle,
+              ),
+              padding: const EdgeInsets.all(
+                20,
+              ), // jarak antara ikon dan lingkaran
+              child: const Icon(
+                Icons.restaurant,
+                size: 60,
+                color: Color(0xFFFFC107),
+              ),
+            ),
             const SizedBox(height: 16),
 
             // ===== JUDUL BESAR =====
