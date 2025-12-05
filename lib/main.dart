@@ -14,39 +14,32 @@ class MakananKalselApp extends StatelessWidget {
       title: 'Makanan Tradisional Kalsel',
       debugShowCheckedModeBanner: false,
 
+      // ===== TEMA KUNING PUTIH LEMBUT =====
       theme: ThemeData(
-        primaryColor: const Color(0xFFFFE082),
-        scaffoldBackgroundColor: const Color(0xFFFFFDE7),
-
+        primaryColor: const Color(0xFFFFD54F),
+        scaffoldBackgroundColor: const Color(0xFFFFFBF2),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFFFFE082),
-          foregroundColor: Colors.black,
-          elevation: 2,
+          backgroundColor: Color(0xFFFFD54F),
+          foregroundColor: Colors.black87,
+          elevation: 1,
         ),
-
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFFFD54F),
+            backgroundColor: const Color(0xFFFFC107),
             foregroundColor: Colors.black,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
           ),
         ),
-
         inputDecorationTheme: const InputDecorationTheme(
           filled: true,
-          fillColor: Color(0xFFFFF9C4),
+          fillColor: Color(0xFFFFF3E0),
           border: OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFFFFD54F)),
-          ),
         ),
-
         chipTheme: const ChipThemeData(
           backgroundColor: Color(0xFFFFECB3),
-          labelStyle: TextStyle(color: Colors.black, fontSize: 10),
-          padding: EdgeInsets.symmetric(horizontal: 8),
+          labelStyle: TextStyle(color: Colors.black87, fontSize: 12),
         ),
       ),
 
@@ -90,7 +83,6 @@ final List<Makanan> daftarMakanan = [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFkxd5U2Qo77QuY3VSCvBvE0j7XgNWlh-USA&s',
     kategori: ['Berkuah', 'Ayam'],
   ),
-
   Makanan(
     nama: 'Ketupat Kandangan',
     asal: 'Hulu Sungai Selatan',
@@ -105,7 +97,6 @@ final List<Makanan> daftarMakanan = [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuSnm32jylJ5vk7jDXfw-WZKZU-SGV85AgfQ&s',
     kategori: ['Santan', 'Ikan'],
   ),
-
   Makanan(
     nama: 'Lontong Orari',
     asal: 'Banjarmasin',
@@ -119,7 +110,6 @@ final List<Makanan> daftarMakanan = [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkscxL4jUEV8ombPM8gaGXwzLGcyVqbrNBpQ&s',
     kategori: ['Pedas', 'Sarapan'],
   ),
-
   Makanan(
     nama: 'Gangan Asam',
     asal: 'Kalimantan Selatan',
@@ -145,17 +135,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController username = TextEditingController();
-  final TextEditingController password = TextEditingController();
+  final username = TextEditingController();
+  final password = TextEditingController();
 
   void login() {
-    if (username.text.isEmpty || password.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Username & Password wajib diisi')),
-      );
-      return;
-    }
-
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -167,77 +150,60 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-
       body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 28),
-          child: Column(
-            children: [
-              /// ✅ ICON BULAT GARPU & SENDOK
-              Container(
-                width: 130,
-                height: 130,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFFFF3CD),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.restaurant,
-                  size: 60,
-                  color: Color(0xFFFFB300),
-                ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // ===== IKON =====
+            const Icon(Icons.restaurant, size: 80, color: Color(0xFFFFC107)),
+            const SizedBox(height: 16),
+
+            // ===== JUDUL BESAR =====
+            const Text(
+              'Kuliner Khas Kalsel',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFFFC107),
               ),
+            ),
+            const SizedBox(height: 24),
 
-              const SizedBox(height: 20),
-
-              const Text(
-                'Makanan Kalimantan Selatan',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-
-              const SizedBox(height: 6),
-              const Text(
-                'Masuk untuk mulai menjelajah',
-                style: TextStyle(fontSize: 12, color: Colors.grey),
-              ),
-
-              const SizedBox(height: 30),
-
-              TextField(
+            // ===== FORM LOGIN =====
+            SizedBox(
+              width: 300,
+              child: TextField(
                 controller: username,
-                decoration: const InputDecoration(
-                  labelText: 'Username',
-                  prefixIcon: Icon(Icons.person),
-                ),
+                decoration: const InputDecoration(labelText: 'Username'),
               ),
-
-              const SizedBox(height: 18),
-
-              TextField(
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              width: 300,
+              child: TextField(
                 controller: password,
                 obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Password',
-                  prefixIcon: Icon(Icons.lock),
-                ),
+                decoration: const InputDecoration(labelText: 'Password'),
               ),
-
-              const SizedBox(height: 25),
-
-              SizedBox(
-                width: double.infinity,
-                height: 48,
-                child: ElevatedButton(
-                  onPressed: login,
-                  child: const Text(
-                    'SIGN IN',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: 300,
+              child: ElevatedButton(
+                onPressed: login,
+                child: const Text('SIGN IN'),
               ),
-            ],
-          ),
+            ),
+
+            const SizedBox(height: 24),
+
+            // ===== SUBJUDUL =====
+            const Text(
+              'Aplikasi Makanan Tradisional Kalimantan Selatan',
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );
@@ -270,31 +236,24 @@ class _ListMakananPageState extends State<ListMakananPage> {
             padding: const EdgeInsets.all(12),
             child: TextField(
               onChanged: (value) => setState(() => search = value),
-              decoration: const InputDecoration(
-                hintText: 'Cari makanan...',
-                prefixIcon: Icon(Icons.search),
-              ),
+              decoration: const InputDecoration(hintText: 'Cari makanan...'),
             ),
           ),
-
           Expanded(
             child: ListView.builder(
               itemCount: filtered.length,
               itemBuilder: (context, index) {
                 final makanan = filtered[index];
                 return Card(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
                   child: ListTile(
-                    leading: Image.network(
-                      makanan.imageUrl,
-                      width: 60,
-                      fit: BoxFit.cover,
-                    ),
+                    leading: Image.network(makanan.imageUrl, width: 60),
                     title: Text(makanan.nama),
-                    subtitle: Text(makanan.asal),
+                    subtitle: Wrap(
+                      spacing: 6,
+                      children: makanan.kategori
+                          .map((k) => Chip(label: Text(k)))
+                          .toList(),
+                    ),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -326,13 +285,56 @@ class DetailMakananPage extends StatelessWidget {
       appBar: AppBar(title: Text(makanan.nama)),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(makanan.imageUrl),
+            // ===== GAMBAR FULL LEBAR RESPONSIF =====
+            SizedBox(
+              width: double.infinity,
+              child: AspectRatio(
+                aspectRatio: 16 / 9, // sesuaikan rasio, bisa 4/3 atau 16/9
+                child: Image.network(
+                  makanan.imageUrl,
+                  fit: BoxFit.cover, // menjaga proporsi gambar
+                ),
+              ),
+            ),
+
             Padding(
               padding: const EdgeInsets.all(16),
-              child: Text(
-                makanan.deskripsiLengkap,
-                textAlign: TextAlign.justify,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // ===== ASAL =====
+                  Text(
+                    "Asal: ${makanan.asal}",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+
+                  // ===== KATEGORI =====
+                  const Text(
+                    "Kategori:",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 6),
+                  Wrap(
+                    spacing: 8,
+                    children: makanan.kategori
+                        .map((k) => Chip(label: Text(k)))
+                        .toList(),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // ===== DESKRIPSI LENGKAP =====
+                  Text(
+                    makanan.deskripsiLengkap,
+                    textAlign: TextAlign.justify,
+                    style: const TextStyle(fontSize: 14),
+                  ),
+                ],
               ),
             ),
           ],
