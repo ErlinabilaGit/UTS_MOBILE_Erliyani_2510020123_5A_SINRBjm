@@ -151,16 +151,12 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              decoration: BoxDecoration(
-                color: const Color(0xFFFFC107),
+              decoration: const BoxDecoration(
+                color: Color(0xFFFFC107),
                 shape: BoxShape.circle,
               ),
               padding: const EdgeInsets.all(20),
-              child: const Icon(
-                Icons.restaurant,
-                size: 60,
-                color: Colors.black,
-              ),
+              child: const Icon(Icons.restaurant, size: 60, color: Colors.black),
             ),
             const SizedBox(height: 16),
             const Text(
@@ -228,7 +224,18 @@ class _ListMakananPageState extends State<ListMakananPage> {
         .toList();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Daftar Makanan')),
+      appBar: AppBar(
+        title: const Text('Daftar Makanan'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginPage()),
+            );
+          },
+        ),
+      ),
       body: Column(
         children: [
           Padding(
@@ -247,11 +254,17 @@ class _ListMakananPageState extends State<ListMakananPage> {
                   child: ListTile(
                     leading: Image.network(makanan.imageUrl, width: 60),
                     title: Text(makanan.nama),
-                    subtitle: Wrap(
-                      spacing: 6,
-                      children: makanan.kategori
-                          .map((k) => Chip(label: Text(k)))
-                          .toList(),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Asal: ${makanan.asal}"),
+                        Wrap(
+                          spacing: 6,
+                          children: makanan.kategori
+                              .map((k) => Chip(label: Text(k)))
+                              .toList(),
+                        ),
+                      ],
                     ),
                     onTap: () {
                       Navigator.push(
@@ -286,12 +299,9 @@ class DetailMakananPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              width: double.infinity,
-              child: AspectRatio(
-                aspectRatio: 16 / 9,
-                child: Image.network(makanan.imageUrl, fit: BoxFit.cover),
-              ),
+            AspectRatio(
+              aspectRatio: 16 / 9,
+              child: Image.network(makanan.imageUrl, fit: BoxFit.cover),
             ),
             Padding(
               padding: const EdgeInsets.all(16),
@@ -306,10 +316,8 @@ class DetailMakananPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  const Text(
-                    "Kategori:",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
+                  const Text("Kategori:",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 6),
                   Wrap(
                     spacing: 8,
