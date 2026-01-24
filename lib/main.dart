@@ -40,7 +40,7 @@ class MakananKalselApp extends StatelessWidget {
           labelStyle: TextStyle(color: Colors.black87, fontSize: 12),
         ),
       ),
-      home: const LoginPage(),
+      home: const LoginPage()
     );
   }
 }
@@ -115,8 +115,7 @@ final List<Makanan> daftarMakanan = [
         'Gangan Asam adalah masakan berkuah asam khas masyarakat Banjar yang sangat menyegarkan. '
         'Masakan ini biasanya dibuat dari ikan laut atau ikan sungai yang dimasak dengan bumbu asam, '
         'kunyit, bawang, dan rempah lainnya. Rasa asam segar berpadu dengan gurihnya ikan membuat '
-        'hidangan ini sangat cocok disantap bersama nasi panas. Gangan Asam sering menjadi menu '
-        'harian di rumah-rumah masyarakat Kalimantan Selatan.',
+        'hidangan ini sangat cocok disantap bersama nasi panas.',
     imageUrl:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMbz2vQfuK7cw3KJ7Y0-o0flDi0Fp2cbrDLA&s',
     kategori: ['Asam', 'Ikan'],
@@ -151,22 +150,15 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // ===== IKON HITAM DALAM LINGKARAN KUNING =====
             Container(
-              decoration: BoxDecoration(
-                color: const Color(0xFFFFC107), // latar kuning
+              decoration: const BoxDecoration(
+                color: Color(0xFFFFC107),
                 shape: BoxShape.circle,
               ),
               padding: const EdgeInsets.all(20),
-              child: const Icon(
-                Icons.restaurant,
-                size: 60,
-                color: Colors.black, // ikon hitam
-              ),
+              child: const Icon(Icons.restaurant, size: 60, color: Colors.black),
             ),
             const SizedBox(height: 16),
-
-            // ===== JUDUL BESAR =====
             const Text(
               'Kuliner Khas Kalsel',
               style: TextStyle(
@@ -176,8 +168,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             const SizedBox(height: 24),
-
-            // ===== FORM LOGIN =====
             SizedBox(
               width: 300,
               child: TextField(
@@ -202,10 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: const Text('SIGN IN'),
               ),
             ),
-
             const SizedBox(height: 24),
-
-            // ===== SUBJUDUL =====
             const Text(
               'Aplikasi Makanan Tradisional Kalimantan Selatan',
               style: TextStyle(fontSize: 16, color: Colors.grey),
@@ -237,7 +224,18 @@ class _ListMakananPageState extends State<ListMakananPage> {
         .toList();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Daftar Makanan')),
+      appBar: AppBar(
+        title: const Text('Daftar Makanan'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginPage()),
+            );
+          },
+        ),
+      ),
       body: Column(
         children: [
           Padding(
@@ -256,11 +254,17 @@ class _ListMakananPageState extends State<ListMakananPage> {
                   child: ListTile(
                     leading: Image.network(makanan.imageUrl, width: 60),
                     title: Text(makanan.nama),
-                    subtitle: Wrap(
-                      spacing: 6,
-                      children: makanan.kategori
-                          .map((k) => Chip(label: Text(k)))
-                          .toList(),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Asal: ${makanan.asal}"),
+                        Wrap(
+                          spacing: 6,
+                          children: makanan.kategori
+                              .map((k) => Chip(label: Text(k)))
+                              .toList(),
+                        ),
+                      ],
                     ),
                     onTap: () {
                       Navigator.push(
@@ -295,21 +299,15 @@ class DetailMakananPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ===== GAMBAR FULL LEBAR RESPONSIF =====
-            SizedBox(
-              width: double.infinity,
-              child: AspectRatio(
-                aspectRatio: 16 / 9,
-                child: Image.network(makanan.imageUrl, fit: BoxFit.cover),
-              ),
+            AspectRatio(
+              aspectRatio: 16 / 9,
+              child: Image.network(makanan.imageUrl, fit: BoxFit.cover),
             ),
-
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // ===== ASAL =====
                   Text(
                     "Asal: ${makanan.asal}",
                     style: const TextStyle(
@@ -318,12 +316,8 @@ class DetailMakananPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 12),
-
-                  // ===== KATEGORI =====
-                  const Text(
-                    "Kategori:",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
+                  const Text("Kategori:",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 6),
                   Wrap(
                     spacing: 8,
@@ -332,8 +326,6 @@ class DetailMakananPage extends StatelessWidget {
                         .toList(),
                   ),
                   const SizedBox(height: 16),
-
-                  // ===== DESKRIPSI LENGKAP =====
                   Text(
                     makanan.deskripsiLengkap,
                     textAlign: TextAlign.justify,
